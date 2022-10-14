@@ -11,7 +11,7 @@ import stylus from "stylus";
 
 import indexRouter from "./routes/index";
 import usersRouter from "./routes/users";
-
+import test from "./1";
 const app = express();
 
 // view engine setup
@@ -25,6 +25,11 @@ app.use(cookieParser());
 app.use(stylus.middleware(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(test("前缀"));
+app.use((request, response, next) => {
+  console.log(request.url);
+  next();
+});
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
