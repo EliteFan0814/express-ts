@@ -9,8 +9,14 @@ app.use(express.raw());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.locals.title = "我的测试express";
-
-app.get("/userInfo", (request, respond) => {
+app.param(
+  ["id", "address"],
+  (request, response, next, paramValue, paramName) => {
+    console.log(paramValue);
+    next();
+  }
+);
+app.get("/userInfo/:id/:address", (request, respond) => {
   respond.send("123");
   // respond.send({ name: "返校超", age: 18 });
 });
